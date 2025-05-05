@@ -49,7 +49,7 @@ const BookList = () => {
 
   return (
     <>
-      <Header name="Margit Tennosaar" />
+      <Header name="Ugorji Chibuzor" />
       <div className="books">
         <h1>Books catalog</h1>
         <label htmlFor="search">Search</label>
