@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { books } from "./booksData";
+import { books } from "../../data/booksData";
 import BookCard from "./BookCard";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 
 const BookList = () => {
   const [booksData, setBooksData] = useState(books);
@@ -14,7 +16,6 @@ const BookList = () => {
     const updatedArray = booksData.map((book) =>
       book.id === id ? { ...book, inStock: !book.inStock } : book
     );
-
     setBooksData(updatedArray);
   };
 
@@ -26,36 +27,59 @@ const BookList = () => {
     );
   };
 
+  const handlePriceChange = (id, newPrice) => {
+    setBooksData((prevState) =>
+      prevState.map((book) =>
+        book.id === id ? { ...book, price: parseFloat(newPrice) } : book
+      )
+    );
+  };
+
   const searchHandle = (event) => {
     setSearchValue(event.target.value);
   };
 
+  const filteredBooks = booksData.filter((book) => {
+    const search = searchValue.toLowerCase();
+    return (
+      book.title.toLowerCase().includes(search) ||
+      book.author.toLowerCase().includes(search)
+    );
+  });
+
   return (
     <>
-      <h1>Books catalog</h1>
-      <label htmlFor="search">Search</label>
-      <input
-        type="text"
-        id="search"
-        name="search"
-        value={searchValue}
-        onChange={searchHandle}
-      />
+      <Header name="Margit Tennosaar" />
+      <div className="books">
+        <h1>Books catalog</h1>
+        <label htmlFor="search">Search</label>
+        <input
+          type="text"
+          id="search"
+          name="search"
+          value={searchValue}
+          onChange={searchHandle}
+        />
+        <p>Your search word is: {searchValue}</p>
 
-      <h2>Your search word is: {searchValue}</h2>
-
-      <div className="boxes">
-        {/* TODO for easter break -> use searchValue to filter the list based on what is typed */}
-        {booksData.map((book) => (
-          <BookCard
-            key={book.id}
-            {...book}
-            onEventHandler={() => eventHandler(book.id)}
-            onToggleStock={toggleStock}
-            onToggleFavorite={() => toggleFavorite(book.id)}
-          />
-        ))}
+        <div className="boxes">
+          {filteredBooks.length > 0 ? (
+            filteredBooks.map((book) => (
+              <BookCard
+                key={book.id}
+                {...book}
+                onEventHandler={() => eventHandler(book.id)}
+                onToggleStock={toggleStock}
+                onToggleFavorite={() => toggleFavorite(book.id)}
+                onPriceChange={handlePriceChange}
+              />
+            ))
+          ) : (
+            <p>No matching books found. Try another search.</p>
+          )}
+        </div>
       </div>
+      <Footer year={2025} />
     </>
   );
 };

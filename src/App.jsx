@@ -1,18 +1,26 @@
+import { createBrowserRouter, RouterProvider } from "react-router";
 import "./App.css";
-import Header from "./Header/Header";
-import Footer from "./Footer/Footer";
-import BookList from "./Books/BookList";
+import Root from "./Pages/Root";
+import About from "./Pages/About";
+import BookList from "./components/Books/BookList";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+  },
+  {
+    path: "/about",
+    element: <About />,
+  },
+  {
+    path: "/books",
+    element: <BookList />,
+  },
+]);
 
 const App = () => {
-  return (
-    <>
-      <Header name="Ugorji Chibuzor" />
-      <main>
-        <BookList />
-      </main>
-      <Footer year={2025} />
-    </>
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default App;
