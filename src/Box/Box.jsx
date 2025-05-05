@@ -1,11 +1,12 @@
 import "./Box.css";
-const Box = (props) => {
+const Box = ({ fullName, title, animal, age, id }) => {
   return (
     <div className="box">
-      <p>{props.fullName}</p>
-      <p>{props.title}</p>
-      <p>{props.myAnimal}</p>
-      <p>{props.age}</p>
+      <p>{fullName}</p>
+      <p>{title}</p>
+      <p>{animal}</p>
+      <p>{age}</p>
+      <p>ID: {id}</p>
     </div>
   );
 };

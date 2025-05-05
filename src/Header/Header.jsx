@@ -1,15 +1,15 @@
 import "./Header.css";
-
-const Header = (props) => {
+const Header = ({ name }) => {
   return (
     <header>
       <div className="logo">
-        <h2>{props.name}</h2>
+        <h2>{name}</h2>
       </div>
       <nav>
         <ul>
           <li>Home</li>
           <li>Persons</li>
+          <li>Books</li>
           <li>About</li>
         </ul>
       </nav>
